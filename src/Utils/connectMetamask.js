@@ -8,7 +8,10 @@ export const checkIfMetaMaskInstalled = () => {
 
 export const connectMetamask = async () => {
   if (!checkIfMetaMaskInstalled()) {
-    toast.error("No Metamask detected. Please install Metamask to continue.");
+    toast.error("🦊 MetaMask not detected. Click here to install MetaMask →", {
+      onClick: () => window.open('https://metamask.io/download/', '_blank'),
+      autoClose: false,
+    });
     window.open('https://metamask.io/download/', '_blank');
     return null;
   }

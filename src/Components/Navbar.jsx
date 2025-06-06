@@ -1,9 +1,11 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useCallback } from "react";
 import { NavbarLinks } from "../Utils/constants";
 import { Link, useLocation } from "react-router-dom";
 import { LiaTimesSolid } from "react-icons/lia";
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
 import { MainContext } from "../Context/MainContext";
+import { checkIfMetaMaskInstalled } from "../Utils/connectMetamask";
+import { toast } from "react-toastify";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,6 +16,17 @@ const Navbar = () => {
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
+
+  const handleConnectWallet = useCallback(async () => {
+    if (!checkIfMetaMaskInstalled()) {
+      toast.error("🦊 MetaMask not detected. Click here to install MetaMask →", {
+        onClick: () => window.open("https://metamask.io/download/", "_blank"),
+        autoClose: false,
+      });
+      return;
+    }
+    await connectMetamaskWithAccount();
+  }, [connectMetamaskWithAccount]);
 
   return (
     <header className="fixed top-3 inset-x-0 flex justify-center z-[9999] before:absolute before:inset-0 max-sm:mx-2 sm:before:max-w-[66rem] before:mx-auto before:rounded-full before:backdrop-blur-md before:bg-white/10">
@@ -60,9 +73,9 @@ const Navbar = () => {
             ) : (
               <button
                 className="inline-flex items-center py-2 px-4 bg-lime-500 text-white font-medium text-sm rounded-full hover:bg-lime-600 transition-colors duration-300"
-                onClick={connectMetamaskWithAccount}
+                onClick={handleConnectWallet}
               >
-                Connect wallet
+                Connect Wallet
               </button>
             )}
           </div>
