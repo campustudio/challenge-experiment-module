@@ -18,7 +18,10 @@ export const MainProvider = ({ children }) => {
 
   // connect to metamask
   const connectMetamaskWithAccount = async () => {
-    const { provider } = await connectMetamask();
+    const result = await connectMetamask();
+    if (!result) return; // If metamask is not installed or connection failed
+    
+    const { provider } = result;
     const accounts = await provider.send("eth_requestAccounts", []);
     setAccount(accounts[0]);
     window.location.reload();
