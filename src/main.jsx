@@ -5,6 +5,7 @@ import "./index.css";
 import { MainProvider } from "./Context/MainContext.jsx";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import "./styles/toast.css"; // Custom toast styles
 
 createRoot(document.getElementById("root")).render(
   <MainProvider>

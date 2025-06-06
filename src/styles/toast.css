@@ -1,0 +1,8 @@
+.Toastify__toast--error {
+  cursor: pointer !important;
+}
+
+.Toastify__toast--error:hover {
+  transform: translateY(-1px);
+  transition: transform 0.2s ease;
+}
