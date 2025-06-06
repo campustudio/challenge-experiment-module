@@ -10,3 +10,12 @@ export const showMetaMaskError = () => {
     autoClose: false,
   });
 };
+
+export const checkAndNotifyMetaMask = () => {
+  const { ethereum } = window;
+  const hasMetaMask = Boolean(ethereum && ethereum.isMetaMask);
+  if (!hasMetaMask) {
+    showMetaMaskError();
+  }
+  return hasMetaMask;
+};

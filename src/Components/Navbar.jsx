@@ -4,8 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 import { LiaTimesSolid } from "react-icons/lia";
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
 import { MainContext } from "../Context/MainContext";
-import { checkIfMetaMaskInstalled } from "../Utils/connectMetamask";
-import { showMetaMaskError } from "../Utils/messages";
+import { checkAndNotifyMetaMask } from "../Utils/messages";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,8 +17,7 @@ const Navbar = () => {
   };
 
   const handleConnectWallet = useCallback(async () => {
-    if (!checkIfMetaMaskInstalled()) {
-      showMetaMaskError();
+    if (!checkAndNotifyMetaMask()) {
       return;
     }
     await connectMetamaskWithAccount();

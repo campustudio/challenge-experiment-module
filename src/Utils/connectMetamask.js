@@ -1,14 +1,8 @@
 import { ethers } from "ethers";
-import { showMetaMaskError } from "./messages";
-
-export const checkIfMetaMaskInstalled = () => {
-  const { ethereum } = window;
-  return Boolean(ethereum && ethereum.isMetaMask);
-};
+import { checkAndNotifyMetaMask } from "./messages";
 
 export const connectMetamask = async () => {
-  if (!checkIfMetaMaskInstalled()) {
-    showMetaMaskError();
+  if (!checkAndNotifyMetaMask()) {
     return null;
   }
 
@@ -24,8 +18,7 @@ export const connectMetamask = async () => {
 
 export const checkIfWalletIsConnect = async (setAccount) => {
   try {
-    if (!checkIfMetaMaskInstalled()) {
-      console.log("Metamask not installed");
+    if (!checkAndNotifyMetaMask()) {
       return;
     }
 
