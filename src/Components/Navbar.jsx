@@ -5,7 +5,7 @@ import { LiaTimesSolid } from "react-icons/lia";
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
 import { MainContext } from "../Context/MainContext";
 import { checkIfMetaMaskInstalled } from "../Utils/connectMetamask";
-import { toast } from "react-toastify";
+import { showMetaMaskError } from "../Utils/messages";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,10 +19,7 @@ const Navbar = () => {
 
   const handleConnectWallet = useCallback(async () => {
     if (!checkIfMetaMaskInstalled()) {
-      toast.error("🦊 MetaMask not detected. Click here to install MetaMask →", {
-        onClick: () => window.open("https://metamask.io/download/", "_blank"),
-        autoClose: false,
-      });
+      showMetaMaskError();
       return;
     }
     await connectMetamaskWithAccount();

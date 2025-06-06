@@ -1,5 +1,5 @@
 import { ethers } from "ethers";
-import { toast } from "react-toastify";
+import { showMetaMaskError } from "./messages";
 
 export const checkIfMetaMaskInstalled = () => {
   const { ethereum } = window;
@@ -8,10 +8,7 @@ export const checkIfMetaMaskInstalled = () => {
 
 export const connectMetamask = async () => {
   if (!checkIfMetaMaskInstalled()) {
-    toast.error("🦊 MetaMask not detected. Click here to install MetaMask →", {
-      onClick: () => window.open("https://metamask.io/download/", "_blank"),
-      autoClose: false,
-    });
+    showMetaMaskError();
     return null;
   }
 
